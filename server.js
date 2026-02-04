@@ -5,12 +5,17 @@ const cors = require('cors');
 
 const app = express();
 app.use(cors());
+
 const server = http.createServer(app);
+
+// ⚠️ CONFIGURATION IMPORTANTE - REMPLACE CE BLOC
 const io = socketIo(server, {
   cors: {
-    origin: "*",
-    methods: ["GET", "POST"]
-  }
+    origin: "*",  // Autorise toutes les origines pour tester
+    methods: ["GET", "POST"],
+    credentials: true
+  },
+  transports: ['websocket', 'polling']  // Important pour Render
 });
 
 // Stockage en mémoire
@@ -197,8 +202,12 @@ function generateGrid() {
   return grid;
 }
 
+// ⚠️ CETTE LIGNE EST IMPORTANTE POUR RENDER
 const PORT = process.env.PORT || 3000;
+
 server.listen(PORT, () => {
   console.log(`🚀 Serveur backend sur le port ${PORT}`);
   console.log(`🔗 URL: http://localhost:${PORT}`);
+  console.log(`📡 WebSocket: ws://localhost:${PORT}`);
+  console.log(`🌐 Prêt pour les connexions...`);
 });
