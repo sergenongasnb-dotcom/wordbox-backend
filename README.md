@@ -1,2 +1,2 @@
-# wordbox-backend
-"Backend pour WordBox multijoueur"
+# WordBox Backend
+Backend pour le jeu WordBox multijoueur
